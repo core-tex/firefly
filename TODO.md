@@ -1,0 +1,2 @@
+- *exa command* | _an alias for examine_
+- *bug* | _unable to connect to MUSH from Atlantis client_
