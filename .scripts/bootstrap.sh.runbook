@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+# The following will not work unless we have a way of creating without a password
+adduser fuzzyweapon --disabled-login
+usermod -G sudo -a 'fuzzyweapon'
+usermod -G ssh -a 'fuzzyweapon'
+
+# Configure sshd
+cp /etc/ssh/sshd_config /etc/ssh/sshd_config_backup
+## change port to 2200
+Port 2200
+AllowUsers root fuzzyweapon
+Banner /etc/issue
+## ensure UFW is enabled and we have SSH access to it
+sudo ufw enable
+sudo ufw allow ssh
+sudo ufw allow 2200/tcp
+sudo ufw allow www
+sudo ufw allow 4000/telnet
+sudo ufw allow 8000/tcp
+
+# Edit banner
+cp /etc/issue /etc/issue_backup
+# "Welcome to the Foxhole human. \n \1"
+
+## On PC
+cd ~/.ssh
+ssh-keygen
+
+##  copy contents of .pub to server's authorized_keys
+ssh-copy-id fuzzyweapon@li225-77.members.linode.com
+chown -hR fuzzyweapon ~/.ssh
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorizedkeys
+#set hostname
+echo "hostname" > /etc/hostname
+hostname -F /etc/hostname
+#update hosts file
+# The value you assign as your system’s FQDN should have an “A” record in DNS pointing to your Linode’s IPv4 address.
+# ex:  12.34.56.78 hostname.example.com hostname
+nano /etc/hosts
+#set timezone
+dpkg-reconfigure tzdata
+#switch to fuzzyweapon
+sudo apt-get update && sudo apt-get upgrade
+sudo apt-get install python-pip
+#mount extra disks foxhole and foxhole_backup - configure fstab
+nano /media/xvda/etc/fstab
+/dev/sdc   /foxhole     ext4    defaults                       0 2
+/dev/sdd   /foxhole-backup ext4 defaults                       0 0
+#add automatic system package upgrading
+sudo apt-get install unattended-upgrades
+#configure unattended upgrades
+sudo nano /etc/apt/apt.conf.d/50unattended-upgrades
+#"Ubuntu trusty-security";
+# "Ubuntu trusty-updates";
+# Harden SSH security
+## Install fail2ban
+sudo apt-get install fail2ban
+## Install fail2ban email support
+sudo apt-get install sendmail
+## Configure fail2ban
+sudo cp /etc/fail2ban/fail2ban.conf /etc/fail2ban/fail2ban.local
+## Configure fail2ban jail
+sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+## Configure fail2ban whitelisting
+# In jail.local...
+[DEFAULT]
+ignoreip = 127.0.0.1/8
+
+# Install docker
+
+
+
+
+#use fsarchiver for backups
+#http://www.fsarchiver.org/QuickStart
