@@ -60,4 +60,6 @@ target/
 
 ### Non-Auto Generated
 # Database
-evennia.db3
+*.db3
+*.pid
+**/server.restart
