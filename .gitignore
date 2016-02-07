@@ -57,3 +57,7 @@ docs/_build/
 
 # PyBuilder
 target/
+
+### Non-Auto Generated
+# Database
+evennia.db3
