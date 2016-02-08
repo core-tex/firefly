@@ -101,4 +101,4 @@ SECRET_KEY = 's`0cj!f-8NB|1{/LX&5"Cx~7YgMeTa}?@;rU2.b]'
 ### Non-Auto-Generated Settings
 INLINEFUNC_ENABLED = True
 MULTISESSION_MODE = 3
-IDLE_TIMEOUT <= 0
+IDLE_TIMEOUT = 0
