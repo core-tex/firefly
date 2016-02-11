@@ -52,11 +52,11 @@ PROTOTYPE_MODULES = ("world.prototypes",)
 # PORT - empty string defaults to localhost (unused in sqlite3)
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(GAME_DIR, "server", "evennia.db3"),
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'wts',
+        'USER': 'miranda',
+        'PASSWORD': 'miranda',
+        'HOST': '127.0.0.1',
         'PORT': ''
         }}
 
