@@ -15,6 +15,7 @@ own cmdsets by inheriting from them or directly from `evennia.CmdSet`.
 """
 
 from evennia import default_cmds
+from commands.command import CmdPage
 
 
 class CharacterCmdSet(default_cmds.CharacterCmdSet):
@@ -49,6 +50,7 @@ class PlayerCmdSet(default_cmds.PlayerCmdSet):
         Populates the cmdset
         """
         super(PlayerCmdSet, self).at_cmdset_creation()
+        self.add(CmdPage)
         #
         # any commands you add below will overload the default ones.
         #
