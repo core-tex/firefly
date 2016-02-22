@@ -7,6 +7,7 @@ Commands describe the input the player can do to the game.
 
 from evennia import Command as BaseCommand
 from evennia import default_cmds
+from evennia.comms.models import Msg
 
 
 class Command(BaseCommand):
@@ -139,4 +140,68 @@ class MuxCommand(default_cmds.MuxCommand):
 
 
 class CmdPage(default_cmds.CmdPage):
+    """
+    send a private message to another player
+
+    Usage:
+      page[/switches] [<player>,<player>,... = <message>]
+      tell        ''
+      page <number>
+
+    Switch:
+      last - shows who you last messaged
+      list - show your last <number> of tells/pages (default)
+
+    Send a message to target user (if online). If no
+    argument is given, you will get a list of your latest messages.
+
+    ------------------------------------------------------------------------------
+
+    Alternative Usage:
+      p is an alias for page
+      p[age] <message>
+          to page the last people you paged who were online
+      p[age] [<player> <player>... = <message>]
+          supports space delimited player lists
+    """
     aliases = ['tell', 'p']
+
+    def parse(self):
+        caller = self.caller
+
+        raw = self.args
+        args = raw.strip()
+        lhs = rhs = []
+        lhs2 = rhs2 = []
+        recv = None
+
+        # get the messages we've sent (not to channels)
+        pages_we_sent = Msg.objects.get_messages_by_sender(caller,
+                                                 exclude_channel_messages=True)
+        if args:
+            # split out args that are addressed and those that aren't
+            if '=' in args:
+                lhs, rhs = [arg.strip() for arg in args.split('=', 1)]
+                print(type(lhs))
+                # support space delimited receiver list
+                if len(lhs.split(' ')) > 1:
+                    lhs = ','.join(lhs.split(' '))
+                    self.args = lhs + '=' + rhs
+            elif pages_we_sent:
+                temp_thing = None
+                # `page <int>` is parsed later for recall history feature
+                try:
+                    temp_thing = int(args)
+                except ValueError:
+                    # split out switches
+                    if args.startswith('/'):
+                        lhs2, rhs2 = [arg.strip() for arg in args.split(' ', 1)]
+                    else:
+                        rhs2 = [arg.strip() for arg in args]
+                    # get the last receivers of messages sent by caller
+                    # sans bits that were offline at the time
+                    recv = ",".join(obj.key for obj in pages_we_sent[-1].receivers)
+                    args = ''.join(lhs2) + ' ' + recv + '=' + ''.join(rhs2)
+                    self.args = args.strip()
+                    pass
+        super(CmdPage, self).parse()
