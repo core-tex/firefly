@@ -8,6 +8,7 @@ Commands describe the input the player can do to the game.
 from evennia import Command as BaseCommand
 from evennia import default_cmds
 from evennia.comms.models import Msg
+from django.conf import settings
 
 
 class Command(BaseCommand):
@@ -139,24 +140,16 @@ class MuxCommand(default_cmds.MuxCommand):
         super(MuxCommand, self).func()
 
 
+def append_help(original_help, new_help):
+    """
+    Helper for attaching additional help documentation to Evennia built-ins.
+    """
+    divider = '-' * settings.CLIENT_DEFAULT_WIDTH
+    return original_help + "\n" + divider + "\n" + new_help
+
+
 class CmdPage(default_cmds.CmdPage):
     """
-    send a private message to another player
-
-    Usage:
-      page[/switches] [<player>,<player>,... = <message>]
-      tell        ''
-      page <number>
-
-    Switch:
-      last - shows who you last messaged
-      list - show your last <number> of tells/pages (default)
-
-    Send a message to target user (if online). If no
-    argument is given, you will get a list of your latest messages.
-
-    ------------------------------------------------------------------------------
-
     Alternative Usage:
       p is an alias for page
       p[age] <message>
@@ -164,6 +157,7 @@ class CmdPage(default_cmds.CmdPage):
       p[age] [<player> <player>... = <message>]
           supports space delimited player lists
     """
+    __doc__ = append_help(default_cmds.CmdPage.__doc__, __doc__)
     aliases = ['tell', 'p']
 
     def parse(self):
