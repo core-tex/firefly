@@ -50,10 +50,9 @@ class PlayerCmdSet(default_cmds.PlayerCmdSet):
         Populates the cmdset
         """
         super(PlayerCmdSet, self).at_cmdset_creation()
+        # Overload build-ins
         self.add(CmdPage)
-        #
-        # any commands you add below will overload the default ones.
-        #
+        self.add(CmdIC)
 
 
 class UnloggedinCmdSet(default_cmds.UnloggedinCmdSet):
@@ -68,6 +67,7 @@ class UnloggedinCmdSet(default_cmds.UnloggedinCmdSet):
         Populates the cmdset
         """
         super(UnloggedinCmdSet, self).at_cmdset_creation()
+        # Disable player creation at connection screen
         self.remove("create")
 
 
