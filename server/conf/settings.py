@@ -107,3 +107,13 @@ GUEST_ENABLED = False
 
 ### Custom Settings
 DEFAULT_HOME = START_LOCATION = HUB = '#2'
+
+DEFAULT_CHANNELS = DEFAULT_CHANNELS + [
+    # staff channel
+    {
+        'key': 'Staff',
+        'aliases': ('sta'),
+        'desc': 'A Staffly Channel',
+        'locks': 'control:perm(Wizards);listen:perm(Builders);send:perm(Builders)'
+    }
+]
