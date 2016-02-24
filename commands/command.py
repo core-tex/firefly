@@ -7,8 +7,8 @@ Commands describe the input the player can do to the game.
 
 from evennia import Command as BaseCommand
 from evennia import default_cmds
+from evennia import settings
 from evennia.comms.models import Msg
-from django.conf import settings
 
 
 class Command(BaseCommand):
@@ -199,3 +199,19 @@ class CmdPage(default_cmds.CmdPage):
                     self.args = args.strip()
                     pass
         super(CmdPage, self).parse()
+
+
+class CmdIC(default_cmds.CmdIC):
+
+    def parse(self):
+        session = self.session
+
+        # Take advantage of parsing.
+        super(CmdIC, self).parse()
+
+        if 'hub' not in self.switches and 'home' not in self.switches:
+            session.dest = 'last'
+        elif 'hub' in self.switches:
+            session.dest = 'hub'
+        else:
+            session.dest = 'home'

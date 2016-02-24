@@ -8,6 +8,8 @@ creation commands.
 
 """
 from evennia import DefaultCharacter
+from evennia import settings
+
 
 class Character(DefaultCharacter):
     """
@@ -28,4 +30,19 @@ class Character(DefaultCharacter):
                     has connected" message echoed to the room
 
     """
-    pass
+    def at_pre_puppet(self, player, session=None):
+        if session.dest == 'hub':
+            self.location = settings.HUB
+        elif session.dest == 'home':
+            self.location = self.home
+
+        if self.location:
+            # Do not persist the destination override.
+            del session.dest
+            # Save the location in case of acts of god.
+            self.db.prelogout_location = self.location
+            self.location.at_object_receive(self, self.location)
+        else:
+            # Fall back on built-in behavior.
+            print session
+            super(Character, self).at_pre_puppet(player, session=session)
