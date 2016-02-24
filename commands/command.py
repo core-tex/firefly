@@ -202,7 +202,14 @@ class CmdPage(default_cmds.CmdPage):
 
 
 class CmdIC(default_cmds.CmdIC):
-
+    """
+    Alternative Usage:
+      @ic/home [<character>]
+          override default @ic behavior to go directly to the character's @home
+      @ic/hub [<character>]
+          override default @ic behavior to go directly to the Spaceport Hub
+    """
+    __doc__ = append_help(default_cmds.CmdPage.__doc__, __doc__)
     def parse(self):
         session = self.session
 
