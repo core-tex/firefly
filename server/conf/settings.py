@@ -107,7 +107,7 @@ GUEST_ENABLED = False
 
 ### Custom Settings
 DEFAULT_HOME = START_LOCATION = HUB = '#2'
-
+CLIENT_DEFAULT_WIDTH = 80
 DEFAULT_CHANNELS = DEFAULT_CHANNELS + [
     # staff channel
     {
