@@ -19,15 +19,38 @@ from django.conf import settings
 from evennia import utils
 
 CONNECTION_SCREEN = \
-"""{b=============================================================={n
- Welcome to {g%s{n, version %s!
-
- If you have an existing account, connect to it by typing:
-      {wconnect <username> <password>{n
- If you need to create an account, type (without the <>'s):
-      {wcreate <username> <password>{n
-
- If you have spaces in your username, enclose it in quotes.
- Enter {whelp{n for more info. {wlook{n will re-show this screen.
-{b=============================================================={n""" \
- % (settings.SERVERNAME, utils.get_evennia_version())
+    """
+        ██╗    ██╗ █████╗ ████████╗ ██████╗██╗  ██╗
+        ██║    ██║██╔══██╗╚══██╔══╝██╔════╝██║  ██║
+        ██║ █╗ ██║███████║   ██║   ██║     ███████║
+        ██║███╗██║██╔══██║   ██║   ██║     ██╔══██║               {Y___{n
+        ╚███╔███╔╝██║  ██║   ██║   ╚██████╗██║  ██║            {Y,o88888{n
+         ╚══╝╚══╝ ╚═╝  ╚═╝   ╚═╝    ╚═════╝╚═╝  ╚═╝         {Y,o88{R888{Y88'{n
+                                        {G,:o:o:oooo.       {Y,8O88{RPd8{Y888"{n
+                                    {G,.::.::o:ooooOoOoO. {Y,oO{R8O8Pd88{Y8'"{n
+        ████████╗██╗  ██╗███████╗  {G,.:.::o:o{Co{GOoO{Co{GOO8O8OOo.{R8OOPd8O8{YO"{n
+        ╚══██╔══╝██║  ██║██╔════╝ {G, .{C.:.{G::o{C:o{GoOo{COOOO8{ROOOOo.FdO8{YO8"{n
+           ██║   ███████║█████╗  {G, ..:.{C::o:ooOoOO8O88{R8O8O,COC{YOO"{n
+           ██║   ██╔══██║██╔══╝ {G, . ..:{C.::o:ooOoOOOO8{ROOOOCO{YCO"{n
+           ██║   ██║  ██║███████╗{G. ..:.{C::o{B:{CooO{BoOo{ROO8O8OC{YCCC"o{n
+           ╚═╝   ╚═╝  ╚═╝╚══════╝  {G. .{C.:.:{B:o:ooo{RoOoC{YoCCC"o:o{n
+                                   {G. .{C.:.:{B:o:{Ro:,cooo{YoCo{C"oo:o{G:{n
+                                {G`   . {C. ..{B:{R.:cocoo{Yoo"'o{C:o:::{G'{n
+        ███████╗██╗  ██╗██╗   ██╗{Y.{G`   {C. ..{R::ccc{Ycoc"'o:{Co:o:::{G'{n
+        ██╔════╝██║ ██╔╝╚██╗ ██╔╝{Y.:.    {R,c:c{Yccc"{C':.:{G.:.{C:.{G:.'{n
+        ███████╗█████╔╝  ╚████╔╝{Y:.{R:"'{G`{R:::{Y:c:"{G'..{C:.:.{G:.:.:.'{n
+        ╚════██║██╔═██╗   ╚██╔╝{R:.'.:.{Y::::"'    {G. {C. . {G. .'{n
+        ███████║██║  ██╗   ██║{Y. {R....:."' `   {G.  . . ''{n
+        ╚══════╝╚═╝  ╚═╝   ╚═╝ {R.{Y..."'{n
+                        {Y.. . ."'{n
+                       {Y.{n
+       +------------------------------------------------------------+
+       |              http://watchtheskies.wikidot.com              |
+       |           Account creation is closed at this time.         |
+       |                                                            |
+       |              Existing accounts connect with:               |
+       |              co(nnect) <username> <password>               |
+       |                                                            |
+       | If you have spaces in your username, enclose it in quotes. |
+       |  Enter help for more info. look will re-show this screen.  |
+       +------------------------------------------------------------+"""
