@@ -3,6 +3,8 @@ watch-the-skies
 
 Evennia game code for an invite-only Firefly setting MUSH.
 
+NOW DEFUNCT.  Kept around for personal reference.
+
 Status
 ======
 
